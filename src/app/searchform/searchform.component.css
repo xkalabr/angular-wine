@@ -1,4 +1,5 @@
 .searchform {
     text-align: center;
     background-color: red;
+    border-right: 4px solid black;
 }

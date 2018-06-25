@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BottleService } from '../bottle.service';
-import { Year } from '../year';
+import { SimpleData } from '../simpledata';
 import { Settings } from '../settings';
 
 @Component({
@@ -10,23 +10,31 @@ import { Settings } from '../settings';
 })
 export class AddformComponent implements OnInit {
 
-  years: Year[];
+  sizes = [".187 L", ".375 L", ".500 L", ".750 L", "1.5 L", "3 L", "6 L"];
+  years: SimpleData[];
   year = "";
   defs: Settings;
+  regions: SimpleData[] = [];
+  region = "87";
 
   constructor(private bottleService: BottleService) { }
 
   ngOnInit() {
     this.getSettings();
-    this.getYears();
   }
 
-  getYears(): void {
-    this.bottleService.getYears()
-      .subscribe(years => {
-        this.years = [{id: "0000", value: "N/A"}];
-        for (var yr of years) {
-          this.years.push({id: yr, value: yr});
+  makeYears(): void {
+    this.years = [{id: "0000", name: "N/A"}];
+    for (var i = +this.defs.maxyear; i >= +this.defs.minyear; i--) {
+      this.years.push({id: String(i), name: String(i)});
+    }
+  }
+
+  getRegions(): void {
+    this.bottleService.getRegions()
+      .subscribe(regions => {
+        for (var reg of regions) {
+          this.regions.push({id: reg.id, name: reg.name.replace(/#/g,'\xA0')});
         }
       });
   }
@@ -36,6 +44,8 @@ export class AddformComponent implements OnInit {
       .subscribe(defs => { 
         this.defs = defs;
         this.year = defs.year;
+        this.makeYears();
+        this.getRegions();
       });
   }
 }

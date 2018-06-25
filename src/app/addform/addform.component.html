@@ -1,14 +1,23 @@
 <div name="addform" class="addform">
   <form>
       <label>Year: 
-          <select [(ngModel)]="year" class="form-control" name="year">
-              <option *ngFor="let yr of years" 
-                [value]="yr.id" 
-                [attr.selected]="year==yr ? true : null">
-                {{yr.value}}
+        <select [(ngModel)]="year" class="form-control" name="year">
+            <option *ngFor="let yr of years" 
+              [value]="yr.id" 
+              [attr.selected]="year==yr ? true : null">
+              {{yr.name}}
+            </option>
+        </select>
+      </label>
+      <label>Region: 
+          <select [(ngModel)]="region" class="form-control" name="region">
+              <option *ngFor="let reg of regions" 
+                [value]="reg.id" 
+                [attr.selected]="region==reg ? true : null">
+                {{reg.name}}
               </option>
           </select>
-        </label>  
+        </label>
   </form>
 </div>
 
