@@ -1,0 +1,16 @@
+.searchbox {
+    width: 50%;
+    float: left;
+    margin-bottom: 5%;
+}
+
+.addbox {
+    width: 50%;
+    float: right;
+    margin-bottom:5%;
+}
+
+.formspacer {
+    height: 100px;
+    background-color:aqua;
+}
