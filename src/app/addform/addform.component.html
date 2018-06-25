@@ -1,4 +1,14 @@
 <div name="addform" class="addform">
-    Add Form
+  <form>
+      <label>Year: 
+          <select [(ngModel)]="year" class="form-control" name="year">
+              <option *ngFor="let yr of years" 
+                [value]="yr.id" 
+                [attr.selected]="year==yr ? true : null">
+                {{yr.value}}
+              </option>
+          </select>
+        </label>  
+  </form>
 </div>
 
