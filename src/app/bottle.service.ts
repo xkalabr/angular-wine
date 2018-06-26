@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Bottle } from './bottle';
-import { Observable, of } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Settings } from './settings';
@@ -16,8 +16,21 @@ const httpOptions = {
 export class BottleService {
 
   private dbUrl = 'http://' + environment.ip + ':5000';
+  private bottleSource = new BehaviorSubject(new Bottle());
+  private querySource = new BehaviorSubject("");
+  theBottle = this.bottleSource.asObservable();
+  queryString = this.querySource.asObservable();
+
 
   constructor(private http: HttpClient) { }
+
+  setBottle(bottle: Bottle) {
+    this.bottleSource.next(bottle);
+  }
+
+  setQuery(query: string) {
+    this.querySource.next(query);
+  }
 
   getYears(): Observable<string[]> {
     const url = this.dbUrl + '/years';
@@ -37,6 +50,11 @@ export class BottleService {
   getVarieties(): Observable<string[]> {
     const url = this.dbUrl + '/varieties';
     return this.http.get<string[]>(url);
+  }
+
+  getRacks(): Observable<SimpleData[]> {
+    const url = this.dbUrl + '/racks';
+    return this.http.get<SimpleData[]>(url);
   }
 
   getRegions(): Observable<SimpleData[]> {

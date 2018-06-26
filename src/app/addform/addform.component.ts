@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BottleService } from '../bottle.service';
 import { SimpleData } from '../simpledata';
 import { Settings } from '../settings';
+import { Bottle } from '../bottle';
 
 @Component({
   selector: 'app-addform',
@@ -11,16 +12,19 @@ import { Settings } from '../settings';
 export class AddformComponent implements OnInit {
 
   sizes = [".187 L", ".375 L", ".500 L", ".750 L", "1.5 L", "3 L", "6 L"];
-  years: SimpleData[];
-  year = "";
   defs: Settings;
+  years: SimpleData[];
   regions: SimpleData[] = [];
-  region = "87";
+  racks: SimpleData[];
+
+  theBottle = new Bottle();
+  oldBottle = new Bottle();
 
   constructor(private bottleService: BottleService) { }
 
   ngOnInit() {
     this.getSettings();
+    this.bottleService.theBottle.subscribe(bottle => this.theBottle = bottle);
   }
 
   makeYears(): void {
@@ -28,6 +32,11 @@ export class AddformComponent implements OnInit {
     for (var i = +this.defs.maxyear; i >= +this.defs.minyear; i--) {
       this.years.push({id: String(i), name: String(i)});
     }
+  }
+
+  getRacks(): void {
+    this.bottleService.getRacks()
+      .subscribe(racks => this.racks = racks);
   }
 
   getRegions(): void {
@@ -43,9 +52,9 @@ export class AddformComponent implements OnInit {
     this.bottleService.getSettings()
       .subscribe(defs => { 
         this.defs = defs;
-        this.year = defs.year;
         this.makeYears();
         this.getRegions();
+        this.getRacks();
       });
   }
 }

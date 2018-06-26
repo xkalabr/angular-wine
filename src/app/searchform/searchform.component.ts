@@ -13,6 +13,7 @@ export class SearchformComponent implements OnInit {
   vineyards: string[];
   varietals: string[];
   years: SimpleData[];
+  racks: SimpleData[];
   year = "";
   defs: Settings;
 
@@ -23,6 +24,7 @@ export class SearchformComponent implements OnInit {
     this.getYears();
     this.getVineyards();
     this.getVarieties();
+    this.getRacks();
   }
 
   getVineyards(): void {
@@ -43,6 +45,11 @@ export class SearchformComponent implements OnInit {
           this.years.push({id: yr, name: yr});
         }
       });
+  }
+
+  getRacks(): void {
+    this.bottleService.getRacks()
+      .subscribe(racks => this.racks = racks);
   }
 
   getSettings(): void {
