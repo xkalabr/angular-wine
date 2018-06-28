@@ -1,4 +1,16 @@
-.addform {
+.center {
     text-align: center;
-    background-color: green;
+}
+
+table {
+    border: 0px;
+    margin-left: 2em;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
 }

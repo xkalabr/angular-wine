@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Settings } from './settings';
 import { SimpleData } from './simpledata';
+import { DBQuery } from './dbquery';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,7 +18,7 @@ export class BottleService {
 
   private dbUrl = 'http://' + environment.ip + ':5000';
   private bottleSource = new BehaviorSubject(new Bottle());
-  private querySource = new BehaviorSubject("");
+  private querySource = new BehaviorSubject(new DBQuery());
   theBottle = this.bottleSource.asObservable();
   queryString = this.querySource.asObservable();
 
@@ -28,7 +29,7 @@ export class BottleService {
     this.bottleSource.next(bottle);
   }
 
-  setQuery(query: string) {
+  setQuery(query: DBQuery) {
     this.querySource.next(query);
   }
 

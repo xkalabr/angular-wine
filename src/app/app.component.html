@@ -1,9 +1,16 @@
-<div name="search" class="searchbox">
-  <app-searchform></app-searchform>
+ <div class="page">
+  <div class="top_container">
+    <div class="boxes">
+      <div class="searchbox">
+        <app-searchform></app-searchform>
+      </div>
+      <div class="spacer">
+      </div>
+      <div class="addbox">
+        <app-addform></app-addform>
+      </div>
+    </div>
+    <app-msgline></app-msgline>
+  </div>
+  <app-results></app-results>
 </div>
-<div name="add" class="addbox">
-  <app-addform></app-addform>
-</div>
-<div class="formspacer">&nbsp;</div>
-<app-msgline></app-msgline>
-<app-results></app-results>

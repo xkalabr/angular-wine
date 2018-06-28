@@ -1,5 +1,22 @@
 .searchform {
+    justify-content: center;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.center {
     text-align: center;
-    background-color: red;
-    border-right: 4px solid black;
+}
+
+table {
+    border: 0px;
+    margin-left: 2em;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
 }

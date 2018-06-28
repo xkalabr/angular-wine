@@ -1,4 +1,8 @@
 .results {
-    display: block;
-    text-align: center;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    flex: 8 8 auto;
+    height: 480px;
+    margin-bottom: 2em;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Bottle } from '../bottle';
 import { BottleService } from '../bottle.service';
+import { DBQuery } from '../dbquery';
 
 @Component({
   selector: 'app-results',
@@ -9,7 +10,7 @@ import { BottleService } from '../bottle.service';
 })
 export class ResultsComponent implements OnInit {
 
-query: string;
+query: DBQuery;
 
 bottle: Bottle = {
   id: 0,

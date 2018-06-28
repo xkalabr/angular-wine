@@ -1,16 +1,30 @@
 .searchbox {
-    width: 50%;
     float: left;
-    margin-bottom: 5%;
 }
 
 .addbox {
-    width: 50%;
     float: right;
-    margin-bottom:5%;
 }
 
-.formspacer {
-    height: 100px;
-    background-color:aqua;
+.spacer {
+    background-color: black;
+    width: 3px;
+    min-height: 100%;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+}
+
+.boxes {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 0px;
+}
+
+.top_container {
+    display: flex;
+    flex-direction: column;
 }

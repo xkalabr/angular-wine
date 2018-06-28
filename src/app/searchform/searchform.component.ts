@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BottleService } from '../bottle.service';
-import { Settings } from '../settings';
 import { SimpleData } from '../simpledata';
+import { DBQuery } from '../dbquery';
 
 @Component({
   selector: 'app-searchform',
@@ -10,21 +10,21 @@ import { SimpleData } from '../simpledata';
 })
 export class SearchformComponent implements OnInit {
 
+  query = new DBQuery();
   vineyards: string[];
   varietals: string[];
   years: SimpleData[];
   racks: SimpleData[];
-  year = "";
-  defs: Settings;
+  regions: SimpleData[] = [];
 
   constructor(private bottleService: BottleService) { }
 
   ngOnInit() {
-    this.getSettings();
     this.getYears();
     this.getVineyards();
     this.getVarieties();
     this.getRacks();
+    this.getRegions();
   }
 
   getVineyards(): void {
@@ -52,12 +52,18 @@ export class SearchformComponent implements OnInit {
       .subscribe(racks => this.racks = racks);
   }
 
-  getSettings(): void {
-    this.bottleService.getSettings()
-      .subscribe(defs => { 
-        this.defs = defs;
-        this.year = defs.year;
+  getRegions(): void {
+    this.bottleService.getRegions()
+      .subscribe(regions => {
+        for (var reg of regions) {
+          this.regions.push({id: reg.id, name: reg.name.replace(/#/g,'\xA0')});
+        }
       });
+  }
+
+  doSearch(lucky: number) {
+    this.query.limit = lucky;
+    this.bottleService.setQuery(this.query);
   }
 
 }
