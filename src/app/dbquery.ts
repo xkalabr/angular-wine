@@ -1,11 +1,11 @@
 export class DBQuery {
-    vineyards: string[];
-    years: string[];
-    varietals: string[];
+    vineyards: string[] = [];
+    years: string[] = [];
+    varietals: string[] = [];
     rack: number = 0;
     show: string = "Current";
-    region: number[];
+    regions: number[] = [];
     t: string = "A";
-    note: string;
-    limit: number = 0;
+    note: string = "";
+    limit: number = -1;
 }

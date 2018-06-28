@@ -63,6 +63,7 @@ export class SearchformComponent implements OnInit {
 
   doSearch(lucky: number) {
     this.query.limit = lucky;
+    console.log('Query:', this.query);
     this.bottleService.setQuery(this.query);
   }
 

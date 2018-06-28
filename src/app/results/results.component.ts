@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Bottle } from '../bottle';
 import { BottleService } from '../bottle.service';
-import { DBQuery } from '../dbquery';
 
 @Component({
   selector: 'app-results',
@@ -10,7 +9,7 @@ import { DBQuery } from '../dbquery';
 })
 export class ResultsComponent implements OnInit {
 
-query: DBQuery;
+results: Bottle[];
 
 bottle: Bottle = {
   id: 0,
@@ -32,7 +31,12 @@ bottle: Bottle = {
   constructor(private bottleService: BottleService) { }
 
   ngOnInit() {
-    this.bottleService.queryString.subscribe(query => this.query = query);
+    this.bottleService.queryString.subscribe(query => {
+      if (query.limit != -1) {
+        this.bottleService.doSearch(query)
+          .subscribe(results => this.results = results)
+      }
+    });
   }
 
 

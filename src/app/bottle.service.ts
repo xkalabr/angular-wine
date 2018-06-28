@@ -63,4 +63,10 @@ export class BottleService {
     return this.http.get<SimpleData[]>(url);
   }
 
+  doSearch(query: DBQuery): Observable<Bottle[]> {
+    const url = this.dbUrl + '/query';
+    console.log('Received query', query);
+    return this.http.post<Bottle[]>(url, query, httpOptions);
+  }
+
 }
