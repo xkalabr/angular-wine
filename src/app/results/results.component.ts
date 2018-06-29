@@ -25,7 +25,10 @@ bottle: Bottle = {
   score: 94,
   region: "87",
   restricted: false,
-  note: ""
+  note: "",
+  rack: 4,
+  pri: "0",
+  sec: "0"
 };
 
   constructor(private bottleService: BottleService) { }

@@ -34,6 +34,14 @@ export class AddformComponent implements OnInit {
     }
   }
 
+  setBottleDefaults(): void {
+    // Needed to workaround angular bug that ignores selected in forms
+    this.theBottle.year = this.defs.year;
+    this.theBottle.region = String(this.defs.region);
+    this.theBottle.size = this.defs.size;
+    this.theBottle.rack = this.defs.rack;
+  }
+
   getRacks(): void {
     this.bottleService.getRacks()
       .subscribe(racks => this.racks = racks);
@@ -52,6 +60,7 @@ export class AddformComponent implements OnInit {
     this.bottleService.getSettings()
       .subscribe(defs => { 
         this.defs = defs;
+        this.setBottleDefaults();
         this.makeYears();
         this.getRegions();
         this.getRacks();

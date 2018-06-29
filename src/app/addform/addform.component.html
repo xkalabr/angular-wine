@@ -1,35 +1,26 @@
 <div name="addform" class="center">
-    <form>
-        <TABLE>
-            <TR>
-              <TD align=center colspan=6><H2>Add</H2></TD>
-              <TD class="right"><INPUT type=checkbox name="multi"></TD>
-              <TD class="left">Multiple</TD>
-            </TR>
-            <TR>
-              <TD class="right">Vineyard: </TD>
-              <TD class="left" colspan=5>
-                    <INPUT type=text name=vineyard size=40 value="">
-              </TD>
-              <TD class="right">Year: </TD>
-              <TD class="left">
-                <SELECT name=year id=year size=1>
-                  <OPTION value=0000>N/A
-    <!--
-    for (int i = Integer.parseInt((String)def.get("maxyear"));
-            i >= Integer.parseInt((String)def.get("minyear")); i-- )
-    {
-        if (i == Integer.parseInt(svals[3]))
-        {
-            out.println("		<OPTION SELECTED value=\"" + i + "\">" + i);
-        }
-        else
-        {
-            out.println("		<OPTION value=\"" + i + "\">" + i);
-        }
-    }
-    -->
-      </SELECT></TD>
+  <form>
+    <TABLE>
+      <TR>
+        <TD align=center colspan=6><H2>Add</H2></TD>
+        <TD class="right"><INPUT type=checkbox name="multi"></TD>
+        <TD class="left">Multiple</TD>
+      </TR>
+      <TR>
+        <TD class="right">Vineyard: </TD>
+        <TD class="left" colspan=5>
+          <INPUT type=text name=vineyard size=40 value="">
+        </TD>
+        <TD class="right">Year: </TD>
+        <TD class="left">
+          <select [(ngModel)]="theBottle.year" size=1 class="form-control" name="year">
+            <option *ngFor="let yr of years" 
+              [value]="yr.id"
+              [attr.selected]="defs.year==yr.name ? true : null">
+              {{yr.name}}
+            </option>
+          </select>
+        </TD>
     </TR>
     <TR>
       <TD class="right">Variety: </TD>
@@ -38,22 +29,13 @@
         </TD>
       <TD class="right">Size: </TD>
       <TD class="left">
-            <SELECT name=sz id=sz size=1>
-              <option>1</option>
-    <!--
-    for (int i=0; i < sizes.length; i++)
-    {
-        if (sizes[i].equalsIgnoreCase(svals[4]))
-        {
-            out.println("		<OPTION value=\"" + sizes[i] + "\" SELECTED>" + sizes[i]);
-        }
-        else
-        {
-            out.println("		<OPTION value=\"" + sizes[i] + "\">" + sizes[i]);
-        }
-    }
-    -->
-      </SELECT></TD>
+        <select [(ngModel)]="theBottle.size" size=1 class="form-control" name="sz">
+          <option *ngFor="let size of sizes" 
+            [value]="size">
+            {{size}}
+          </option>
+        </select>
+      </TD>
     </TR>
     <TR>
       <TD class="right">Designation: </TD>
@@ -68,24 +50,13 @@
     <TR>
       <TD class="right">Location: </TD>
       <TD class="left">
-            <SELECT name=rack id=rack size=1>
-              <option>1</option>
-    <!--
-    for (Iterator i = locations.iterator(); i.hasNext(); )
-    {
-        value = (String)i.next();
-        racks = value.split("@@");
-        if (racks[0].equalsIgnoreCase(svals[6]))
-        {
-            out.println("		<OPTION value=\"" + racks[0] + "\" SELECTED>" + racks[1]);
-        }
-        else
-        {
-            out.println("		<OPTION value=\"" + racks[0] + "\">" + racks[1]);
-        }
-    }
-    -->
-        </SELECT>
+        <select [(ngModel)]="theBottle.rack" size=1 class="form-control" name="rack">
+          <option *ngFor="let rack of racks" 
+            [value]="rack.id"
+            [attr.selected]="defs.rack==rack.id ? true : null">
+            {{rack.name}}
+          </option>
+        </select>
       </TD>
       <TD class="right">Pri: </TD>
       <TD class="left">
@@ -96,36 +67,9 @@
         <INPUT type=text name=sec size=2>
       </TD>
       <TD colspan=2>
-    <!--
-    if (svals[7].equalsIgnoreCase("R"))
-    {
-        out.println("	<INPUT type=radio name=t CHECKED value=R>Red");
-    }
-    else
-    {
-        out.println("	<INPUT type=radio name=t value=R>Red");
-    }
-    if (svals[7].equalsIgnoreCase("W"))
-    {
-        out.println("	<INPUT type=radio name=t CHECKED value=W>White");
-    }
-    else
-    {
-        out.println("	<INPUT type=radio name=t value=W>White");
-    }
-    if (svals[7].equalsIgnoreCase("P"))
-    {
-        out.println("	<INPUT type=radio name=t CHECKED value=P>Rose");
-    }
-    else
-    {
-        out.println("	<INPUT type=radio name=t value=P>Rose");
-    }
-    
-    -->
-          <INPUT type=radio name=t value=R>Red
-          <INPUT type=radio name=t value=W>White
-          <INPUT type=radio name=t value=P>Rose
+        <INPUT type=radio name=t value=R>Red
+        <INPUT type=radio name=t value=W>White
+        <INPUT type=radio name=t value=P>Rose
       </TD>
     </TR>
     <TR>
@@ -149,31 +93,20 @@
     <TR>
       <TD class="right">Region: </TD>
       <TD class="left" colspan=4>
-        <SELECT name=region size=1>
-          <option>1</option>
-    <!--
-    for (Iterator i = regions.iterator(); i.hasNext(); )
-    {
-        value = (String) i.next();
-        regs = value.split("@@");
-        if (regs[0].equalsIgnoreCase(svals[14]))
-        {
-            out.println("		<OPTION value=\"" + regs[0] + "\" SELECTED>" + regs[2].replaceAll("#","&nbsp;"));
-        }
-        else
-        {
-            out.println("		<OPTION value=\"" + regs[0] + "\">" + regs[2].replaceAll("#","&nbsp;"));
-        }
-    }
-    -->
-        </SELECT>
+        <select [(ngModel)]="theBottle.region" size=1 class="form-control" name="region">
+          <option *ngFor="let region of regions" 
+            [value]="region.id"
+            [attr.selected]="defs.region==region.id ? true : null">
+            {{region.name}}
+          </option>
+        </select>
       </TD>
       <TD colspan=3>&nbsp;</TD>	
     </TR>
     <TR>
       <TD class="right">Notes: </TD>
       <TD class="left" colspan=6>
-        <textarea rows=4 cols=40 name=notes id=notes wrap=soft>My data</textarea>
+        <textarea [(ngModel)]="theBottle.note" class="form-control" rows=4 cols=40 name=notes id=notes wrap=soft></textarea>
       </TD>
       <TD>&nbsp;</TD>
     </TR>
@@ -191,7 +124,7 @@
           <select [(ngModel)]="region" class="form-control" name="region">
               <option *ngFor="let region of regions" 
                 [value]="region.id" 
-                [attr.selected]="defs.region == region ? true : null">
+                [attr.selected]="defs.region == region.id ? true : null">
                 {{region.name}}
               </option>
           </select>

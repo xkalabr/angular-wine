@@ -13,4 +13,7 @@ export class Bottle {
     region: string;
     restricted: boolean;
     note: string;
+    rack: number;
+    pri: string;
+    sec: string;
 }
