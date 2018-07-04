@@ -48,7 +48,7 @@ export class AddformComponent implements OnInit {
   }
 
   getRegions(): void {
-    this.bottleService.getRegions()
+    this.bottleService.getRegions("add")
       .subscribe(regions => {
         for (var reg of regions) {
           this.regions.push({id: reg.id, name: reg.name.replace(/#/g,'\xA0')});

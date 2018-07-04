@@ -58,8 +58,8 @@ export class BottleService {
     return this.http.get<SimpleData[]>(url);
   }
 
-  getRegions(): Observable<SimpleData[]> {
-    const url = this.dbUrl + '/regions';
+  getRegions(form: string): Observable<SimpleData[]> {
+    const url = this.dbUrl + '/regions/' + form;
     return this.http.get<SimpleData[]>(url);
   }
 

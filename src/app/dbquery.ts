@@ -4,7 +4,7 @@ export class DBQuery {
     varietals: string[] = [];
     rack: number = 0;
     show: string = "Current";
-    regions: number[] = [];
+    regions: string[] = [];
     t: string = "A";
     note: string = "";
     limit: number = -1;

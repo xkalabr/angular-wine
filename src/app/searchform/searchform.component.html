@@ -8,7 +8,7 @@
             <TD class="right">Vineyard: </TD>
             <TD class="left">
               <select [(ngModel)]="query.vineyards" size=3 multiple class="form-control" name="vineyard">
-                <option value="">Any</option>
+                <option value="Any">Any</option>
                 <option *ngFor="let vineyard of vineyards" 
                   [value]="vineyard">
                   {{vineyard}}
@@ -29,7 +29,7 @@
           <TD class="right">Variety: </TD>
           <TD class="left">
             <select [(ngModel)]="query.varietals" size=3 multiple class="form-control" name="variety">
-              <option value="">Any</option>
+              <option value="Any">Any</option>
               <option *ngFor="let varietal of varietals" 
                 [value]="varietal">
                 {{varietal}}
@@ -71,7 +71,7 @@
           <TD class="right">Region: </TD>
           <TD class="left">
             <select [(ngModel)]="query.regions" size=5 multiple class="form-control" name="region">
-                <option value="">Any</option>
+                <option value="Any">Any</option>
                 <option *ngFor="let region of regions" 
                   [value]="region.id">
                   {{region.name}}

@@ -40,7 +40,8 @@ export class SearchformComponent implements OnInit {
   getYears(): void {
     this.bottleService.getYears()
       .subscribe(years => {
-        this.years = [{id: "0000", name: "N/A"}];
+        this.years = [{id: "Any", name: "Any"}];
+        this.years.push({id: "0000", name: "N/A"});
         for (var yr of years) {
           this.years.push({id: yr, name: yr});
         }
@@ -53,7 +54,7 @@ export class SearchformComponent implements OnInit {
   }
 
   getRegions(): void {
-    this.bottleService.getRegions()
+    this.bottleService.getRegions("search")
       .subscribe(regions => {
         for (var reg of regions) {
           this.regions.push({id: reg.id, name: reg.name.replace(/#/g,'\xA0')});
@@ -64,6 +65,11 @@ export class SearchformComponent implements OnInit {
   doSearch(lucky: number) {
     this.query.limit = lucky;
     console.log('Query:', this.query);
+    var regionFix = [];
+    for (var r of this.query.regions) {
+      regionFix.push(String(r));
+    }
+    this.query.regions = regionFix;
     this.bottleService.setQuery(this.query);
   }
 
