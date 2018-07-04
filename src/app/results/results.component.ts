@@ -9,7 +9,6 @@ import { BottleService } from '../bottle.service';
 })
 export class ResultsComponent implements OnInit {
 
-results: Bottle[];
 
 bottle: Bottle = {
   id: 0,
@@ -36,14 +35,13 @@ bottle: Bottle = {
   ngOnInit() {
     this.bottleService.queryString.subscribe(query => {
       if (query.limit != -1) {
-        this.bottleService.doSearch(query)
-          .subscribe(results => this.results = results)
+        this.bottleService.runQuery(query);
       }
     });
   }
 
 
-  addOrEditBottle() {
-    this.bottleService.setBottle(this.bottle);
+  addOrEditBottle(bottle) {
+    this.bottleService.setBottle(bottle);
   }
 }

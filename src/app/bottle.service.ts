@@ -21,7 +21,8 @@ export class BottleService {
   private querySource = new BehaviorSubject(new DBQuery());
   theBottle = this.bottleSource.asObservable();
   queryString = this.querySource.asObservable();
-
+  bottles = [];
+  value = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -31,6 +32,16 @@ export class BottleService {
 
   setQuery(query: DBQuery) {
     this.querySource.next(query);
+  }
+
+  runQuery(query: DBQuery) {
+    this.doSearch(query).subscribe(results => {
+      this.bottles = results;
+      this.value = 0;
+      for (var b of results) {
+        this.value += Number(b.price);
+      }
+    });
   }
 
   getYears(): Observable<string[]> {
@@ -63,10 +74,9 @@ export class BottleService {
     return this.http.get<SimpleData[]>(url);
   }
 
-  doSearch(query: DBQuery): Observable<Bottle[]> {
+  doSearch(query: DBQuery): Observable<any> {
     const url = this.dbUrl + '/query';
-    console.log('Received query', query);
-    return this.http.post<Bottle[]>(url, query, httpOptions);
+    return this.http.post<any>(url, query, httpOptions);
   }
 
 }
