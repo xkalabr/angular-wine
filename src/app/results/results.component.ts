@@ -40,6 +40,37 @@ bottle: Bottle = {
     });
   }
 
+  sparklingYear(vyear, pyear) {
+    var retval = vyear;
+    if (vyear < 1) {
+      retval = pyear;
+    }
+    return retval;
+  }
+
+  checkYear(year) {
+    var retval = "normal";
+    if (year == 0) {
+      retval = "italic";
+    }
+    return retval;
+  }
+
+  getRack(rack, pri, sec) {
+    var retval = "";
+    if (rack != "") {
+      retval = rack + ": " + pri + " " + sec;
+    }
+    return retval;
+  }
+
+  getNote(note) {
+    var retval = " \xA0 ";
+    if (note != "") {
+      retval = " X ";
+    }
+    return retval;
+  }
 
   addOrEditBottle(bottle) {
     this.bottleService.setBottle(bottle);

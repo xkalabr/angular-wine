@@ -1,18 +1,75 @@
+<H1>Wine Listings</H1>
 <div class="results">
   <table>
-    <tr *ngFor="let b of bottleService.bottles">
-      <td>{{b.year}}</td>
-      <td>{{b.vineyard}}</td>
+    <tr class="headers">
+      <td class="nums"> &nbsp; </td>
+      <td> Year </td>
+      <td> Vineyard </td>
+      <td> Varietal </td>
+      <td> Designation </td>
+      <td> Price </td>
+      <td> Location </td>
+      <td> Score </td>
+      <td> Drink Min </td>
+      <td> Drink Max </td>
+      <td> Notes </td>
+      <td class="nums"> &nbsp; </td>
+    </tr>
+    <tr *ngFor="let b of bottleService.bottles; let i = index" class="{{b.t}}">
+      <td class="nums"> &nbsp; {{i+1}}. </td>
+      <td [ngStyle]="{'font-style': checkYear(b.year)}" class="left">{{sparklingYear(b.year, b.da)}}</td>
+      <td class="left">{{b.winery}}</td>
       <td>{{b.varietal}}</td>
-      <td>{{b.price | currency}}</td>
-      <td>{{b.drinkmin}}</td>
-      <td>{{b.drinkmax}}</td>
+      <td>{{b.vineyard}}</td>
+      <td class="left">{{b.price | currency}}</td>
+      <td>{{getRack(b.rack, b.pri, b.sec)}}</td>
+      <td>{{b.score}}</td>
+      <td class="left">{{b.drinkmin}}</td>
+      <td class="left">{{b.drinkmax}}</td>
+      <td>{{getNote(b.note)}}</td>
+      <td class="nums"> &nbsp; </td>
     </tr>
     <tr>
-      <td colspan=4 align=center>Total Value: {{bottleService.value | currency}}</td>
+      <td colspan=4 align=center>&nbsp;</td>
+      <td class="right">Total Value:</td>
+      <td class="center">{{bottleService.value | currency}}</td>
+      <td colspan=6>&nbsp;</td>
     </tr>
     <tr>
-      <td colspan=4><i>Query returned {{bottleService.bottles.length}} items</i></td>
+      <td colspan=12 class="small italic">Query returned {{bottleService.bottles.length}} items</td>
     </tr>
   </table>
 </div>
+
+<!--
+out.print("<TR bgcolor=" + color + "><TD bgcolor=white><A href=\"#" + rcount + "\" onMouseOver=\"status='Add'; return true;\" onMouseOut=\"status=''; return true;\" onClick=\"window.open('multi?item=" +
+  b.getID() + "','add')\">*</A><A href=\"#" + rcount + "\" onMouseOver=\"status='Edit'; return true;\" onMouseOut=\"status=''; return true;\" onClick=\"window.open('edit?item=" +
+  b.getID() + "','editwine',config='width=600,height=390')\">" + rcount + 
+  "</A>.<A NAME=\"" + rcount + "\"></A></TD><TD align=left>" + b.getYear() + "</TD><TD align=left>" + b.getWinery() +
+  "</TD><TD>" + b.getVariety() + "</TD><TD>" + b.getVineyard() + "</TD><TD align=left>" + usFormat.format(b.getPrice()) + "</TD><TD>" + b.getRack());
+
+
+if (!b.isDrunk())
+{
+  // new_variety = addslashes(variety2);
+  if (b.isRestricted()) { color="red"; } else { color="white"; }
+  out.println("<TD bgcolor=" + color + "><INPUT type=button value=Drink onClick=\"return confirmDrink(" + b.getID() + ",'" + b.getYear() + "','" + b.getVariety() + "');\"></TD></TR>");
+}
+else
+{
+  out.println("<TD bgcolor=white> &nbsp </TD></TR>");
+}
+
+}
+if (rcount > 0)
+{
+out.println("<TR><TD colspan=4>&nbsp</TD><TD align=right>Total Value:</TD><TD align=center>" + usFormat.format(total) + "</TD><TD colspan=2> &nbsp </TD></TR>");	
+}
+else
+{
+out.println("<TR><TD>No data.</TD><TD colspan=7></TR>");
+}
+out.println("</TABLE>");
+out.println("<BR><CENTER><I><FONT size=-1>Query returned " + rcount + " items.</FONT></I></CENTER></BR>");
+out.println("</BODY></HTML>");
+-->

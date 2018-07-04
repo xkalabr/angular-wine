@@ -23,6 +23,7 @@ export class BottleService {
   queryString = this.querySource.asObservable();
   bottles = [];
   value = 0;
+  message = "Some text";
 
   constructor(private http: HttpClient) { }
 
@@ -32,6 +33,10 @@ export class BottleService {
 
   setQuery(query: DBQuery) {
     this.querySource.next(query);
+  }
+
+  setMessage(message: string) {
+    this.message = message;
   }
 
   runQuery(query: DBQuery) {

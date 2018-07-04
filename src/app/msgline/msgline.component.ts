@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BottleService } from '../bottle.service';
 
 @Component({
   selector: 'app-msgline',
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MsglineComponent implements OnInit {
 
-  message = "Message: This is some test text"
 
-  constructor() { }
+  constructor(private bottleService: BottleService) { }
 
   ngOnInit() {
   }
