@@ -16,8 +16,15 @@
       <td class="nums"> &nbsp; </td>
     </tr>
     <tr *ngFor="let b of bottleService.bottles; let i = index" class="{{b.t}}">
-      <td class="nums"> &nbsp; {{i+1}}. </td>
-      <td [ngStyle]="{'font-style': checkYear(b.year)}" class="left">{{sparklingYear(b.year, b.da)}}</td>
+      <td class="nums">
+        <a href="#add" (click)="testing()">*</a>
+        <a href="#add" (click)="testing_too()">{{i+1}}</a>.
+      </td>
+      <td class="left italic bluetext" *ngIf="b.year == '0'; else origyear">
+        {{b.da}}
+      </td>
+      <ng-template #origyear class="left">{{b.year}}</ng-template>
+
       <td class="left">{{b.winery}}</td>
       <td>{{b.varietal}}</td>
       <td>{{b.vineyard}}</td>
@@ -26,28 +33,33 @@
       <td>{{b.score}}</td>
       <td class="left">{{b.drinkmin}}</td>
       <td class="left">{{b.drinkmax}}</td>
-      <td>{{getNote(b.note)}}</td>
-      <td class="nums"> &nbsp; </td>
+      <td *ngIf="b.note != ''; else nonote" class="center">
+        <a href="#msg" (click)="showNote(b.note)">X</a>
+      </td>
+      <ng-template #nonote> &nbsp; </ng-template>
+      <td *ngIf="!b.drunk; else nobutton" [ngClass]="checkRestricted(b.restricted)">
+          <input type=button value="Drink" (click)="drink(b.id,b.year,b.varietal)">
+      </td>
+      <ng-template #nobutton class="nums"> &nbsp; </ng-template>
     </tr>
-    <tr>
+    <tr *ngIf="bottleService.bottles.length != 0">
       <td colspan=4 align=center>&nbsp;</td>
       <td class="right">Total Value:</td>
       <td class="center">{{bottleService.value | currency}}</td>
       <td colspan=6>&nbsp;</td>
     </tr>
-    <tr>
+    <tr *ngIf="bottleService.bottles.length != 0; else nodata">
       <td colspan=12 class="small italic">Query returned {{bottleService.bottles.length}} items</td>
+    </tr>
+    <tr *ngIf="bottleService.bottles.length == 0 && searched">
+      <td>&nbsp;</td>
+      <td>No data.</td>
+      <td colspan=10></td>
     </tr>
   </table>
 </div>
 
 <!--
-out.print("<TR bgcolor=" + color + "><TD bgcolor=white><A href=\"#" + rcount + "\" onMouseOver=\"status='Add'; return true;\" onMouseOut=\"status=''; return true;\" onClick=\"window.open('multi?item=" +
-  b.getID() + "','add')\">*</A><A href=\"#" + rcount + "\" onMouseOver=\"status='Edit'; return true;\" onMouseOut=\"status=''; return true;\" onClick=\"window.open('edit?item=" +
-  b.getID() + "','editwine',config='width=600,height=390')\">" + rcount + 
-  "</A>.<A NAME=\"" + rcount + "\"></A></TD><TD align=left>" + b.getYear() + "</TD><TD align=left>" + b.getWinery() +
-  "</TD><TD>" + b.getVariety() + "</TD><TD>" + b.getVineyard() + "</TD><TD align=left>" + usFormat.format(b.getPrice()) + "</TD><TD>" + b.getRack());
-
 
 if (!b.isDrunk())
 {
@@ -61,15 +73,5 @@ else
 }
 
 }
-if (rcount > 0)
-{
-out.println("<TR><TD colspan=4>&nbsp</TD><TD align=right>Total Value:</TD><TD align=center>" + usFormat.format(total) + "</TD><TD colspan=2> &nbsp </TD></TR>");	
-}
-else
-{
-out.println("<TR><TD>No data.</TD><TD colspan=7></TR>");
-}
-out.println("</TABLE>");
-out.println("<BR><CENTER><I><FONT size=-1>Query returned " + rcount + " items.</FONT></I></CENTER></BR>");
-out.println("</BODY></HTML>");
+
 -->

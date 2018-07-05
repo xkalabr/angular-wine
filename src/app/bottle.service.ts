@@ -23,7 +23,7 @@ export class BottleService {
   queryString = this.querySource.asObservable();
   bottles = [];
   value = 0;
-  message = "Some text";
+  message = "";
 
   constructor(private http: HttpClient) { }
 
@@ -77,6 +77,11 @@ export class BottleService {
   getRegions(form: string): Observable<SimpleData[]> {
     const url = this.dbUrl + '/regions/' + form;
     return this.http.get<SimpleData[]>(url);
+  }
+
+  drinkBottle(id: string): Observable<any> {
+    const url = this.dbUrl + '/drink/' + id;
+    return this.http.delete(url);
   }
 
   doSearch(query: DBQuery): Observable<any> {

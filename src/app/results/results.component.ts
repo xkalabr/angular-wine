@@ -9,7 +9,7 @@ import { BottleService } from '../bottle.service';
 })
 export class ResultsComponent implements OnInit {
 
-
+searched = false;
 bottle: Bottle = {
   id: 0,
   vineyard: "Caymus",
@@ -36,22 +36,15 @@ bottle: Bottle = {
     this.bottleService.queryString.subscribe(query => {
       if (query.limit != -1) {
         this.bottleService.runQuery(query);
+        this.searched = true;
       }
     });
   }
 
-  sparklingYear(vyear, pyear) {
-    var retval = vyear;
-    if (vyear < 1) {
-      retval = pyear;
-    }
-    return retval;
-  }
-
-  checkYear(year) {
-    var retval = "normal";
-    if (year == 0) {
-      retval = "italic";
+  checkRestricted(restr) {
+    var retval = "nums";
+    if (restr == "Y") {
+      retval = "restricted"
     }
     return retval;
   }
@@ -64,12 +57,25 @@ bottle: Bottle = {
     return retval;
   }
 
-  getNote(note) {
-    var retval = " \xA0 ";
-    if (note != "") {
-      retval = " X ";
+  testing() {
+    console.log("Testing");
+  }
+
+  testing_too() {
+    console.log("Testing too");
+  }
+
+  showNote(note) {
+    console.log('Received note: ', note);
+    this.bottleService.setMessage(note);
+  }
+
+  drink(id, year, varietal) {
+    if(confirm("Do you want to remove this " + year + " " + varietal + " from the database?")) {
+      this.bottleService.drinkBottle(id)
+        .subscribe(result => this.bottleService.setMessage(year + " " + varietal + " has been removed"));
     }
-    return retval;
+
   }
 
   addOrEditBottle(bottle) {

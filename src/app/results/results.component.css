@@ -15,6 +15,10 @@
     background-color: white;
 }
 
+.restricted {
+    background-color: red;
+}
+
 .R {
     background-color: #CD69B8;
 }
@@ -26,6 +30,11 @@
 .P {
     background-color: #F2868E;
 }
+
+.bluetext {
+    color: blue;
+}
+
 .left {
     text-align: left;
 }
