@@ -64,7 +64,6 @@ export class SearchformComponent implements OnInit {
 
   doSearch(lucky: number) {
     this.query.limit = lucky;
-    console.log('Query:', this.query);
     var regionFix = [];
     for (var r of this.query.regions) {
       regionFix.push(String(r));

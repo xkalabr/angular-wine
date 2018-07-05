@@ -3,15 +3,16 @@
   <table>
     <tr class="headers">
       <td class="nums"> &nbsp; </td>
-      <td> Year </td>
-      <td> Vineyard </td>
-      <td> Varietal </td>
-      <td> Designation </td>
-      <td> Price </td>
-      <td> Location </td>
-      <td> Score </td>
-      <td> Drink Min </td>
-      <td> Drink Max </td>
+      <td><a href="#msg" (click)="sortBy('year')">Year</a></td>
+      <td><a href="#msg" (click)="sortBy('winery')">Winery</a></td>
+      <td><a href="#msg" (click)="sortBy('varietal')">Varietal</a></td>
+      <td><a href="#msg" (click)="sortBy('vineyard')">Designation</a></td>
+      <td><a href="#msg" (click)="sortBy('price')">Price</a></td>
+      <td><a href="#msg" (click)="byLocation()">Location</a></td>
+      <td><a href="#msg" (click)="sortBy('score')">Score</a></td>
+      <td><a href="#msg" (click)="sortBy('drinkmin')">Drink Min</a></td>
+      <td><a href="#msg" (click)="sortBy('drinkmax')">Drink Max</a></td>
+      <td><a href="#msg" (click)="sortBy('size')">Size</a></td>
       <td> Notes </td>
       <td class="nums"> &nbsp; </td>
     </tr>
@@ -33,6 +34,7 @@
       <td>{{b.score}}</td>
       <td class="left">{{b.drinkmin}}</td>
       <td class="left">{{b.drinkmax}}</td>
+      <td>{{b.size}}</td>
       <td *ngIf="b.note != ''; else nonote" class="center">
         <a href="#msg" (click)="showNote(b.note)">X</a>
       </td>
@@ -46,15 +48,15 @@
       <td colspan=4 align=center>&nbsp;</td>
       <td class="right">Total Value:</td>
       <td class="center">{{bottleService.value | currency}}</td>
-      <td colspan=6>&nbsp;</td>
+      <td colspan=7>&nbsp;</td>
     </tr>
     <tr *ngIf="bottleService.bottles.length != 0; else nodata">
-      <td colspan=12 class="small italic">Query returned {{bottleService.bottles.length}} items</td>
+      <td colspan=13 class="small italic">Query returned {{bottleService.bottles.length}} items</td>
     </tr>
     <tr *ngIf="bottleService.bottles.length == 0 && searched">
       <td>&nbsp;</td>
       <td>No data.</td>
-      <td colspan=10></td>
+      <td colspan=11></td>
     </tr>
   </table>
 </div>

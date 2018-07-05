@@ -75,7 +75,13 @@ bottle: Bottle = {
       this.bottleService.drinkBottle(id)
         .subscribe(result => this.bottleService.setMessage(year + " " + varietal + " has been removed"));
     }
+  }
 
+  sortBy(name: string) {
+    this.bottleService.sortBy(name);
+  }
+  byLocation() {
+    this.bottleService.sortByLocation();
   }
 
   addOrEditBottle(bottle) {

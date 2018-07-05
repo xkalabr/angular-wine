@@ -24,6 +24,7 @@ export class BottleService {
   bottles = [];
   value = 0;
   message = "";
+  sortOrder = -1;
 
   constructor(private http: HttpClient) { }
 
@@ -87,6 +88,34 @@ export class BottleService {
   doSearch(query: DBQuery): Observable<any> {
     const url = this.dbUrl + '/query';
     return this.http.post<any>(url, query, httpOptions);
+  }
+
+  sortBy(x: string) {
+    this.sortOrder = -this.sortOrder;
+    this.bottles.sort((n1,n2) => {
+      if (n1[x].toUpperCase() > n2[x].toUpperCase()) {
+          return 1 * this.sortOrder;
+      }
+      if (n1[x].toUpperCase() < n2[x].toUpperCase()) {
+          return -1 * this.sortOrder;
+      }
+      return 0;
+    });
+  }
+
+  sortByLocation() {
+    this.sortOrder = -this.sortOrder;
+    this.bottles.sort((n1,n2) => {
+      const a = n1.rack + ": " + n1.pri + " " + n1.sec;
+      const b = n2.rack + ": " + n2.pri + " " + n2.sec;
+      if (a > b) {
+        return 1 * this.sortOrder;
+      }
+      if (a < b) { 
+        return -1 * this.sortOrder;
+      }
+      return 0;
+    });
   }
 
 }
