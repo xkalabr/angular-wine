@@ -28,17 +28,17 @@ export class SearchformComponent implements OnInit {
   }
 
   getVineyards(): void {
-    this.bottleService.getVineyards()
+    this.bottleService.getStringValues("vineyards")
       .subscribe(vineyards => this.vineyards = vineyards);
   }
 
   getVarieties(): void {
-    this.bottleService.getVarieties()
+    this.bottleService.getStringValues("varieties")
       .subscribe(varieties => this.varietals = varieties);
   }
 
   getYears(): void {
-    this.bottleService.getYears()
+    this.bottleService.getStringValues("years")
       .subscribe(years => {
         this.years = [{id: "Any", name: "Any"}];
         this.years.push({id: "0000", name: "N/A"});

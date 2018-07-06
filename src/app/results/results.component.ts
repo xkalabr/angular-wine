@@ -10,25 +10,6 @@ import { BottleService } from '../bottle.service';
 export class ResultsComponent implements OnInit {
 
 searched = false;
-bottle: Bottle = {
-  id: 0,
-  vineyard: "Caymus",
-  varietal: "Cabernet Sauvignon",
-  designation: "Napa Valley",
-  size: ".750 L",
-  year: "2014",
-  t: "R",
-  price: 59.99,
-  drinkMin: "2017",
-  drinkMax: "2030",
-  score: 94,
-  region: "87",
-  restricted: false,
-  note: "",
-  rack: 4,
-  pri: "0",
-  sec: "0"
-};
 
   constructor(private bottleService: BottleService) { }
 
@@ -57,8 +38,11 @@ bottle: Bottle = {
     return retval;
   }
 
-  testing() {
-    console.log("Testing");
+  fetchBottle(id,edit) {
+    this.bottleService.fetchBottle(id)
+      .subscribe(result => {
+        this.addOrEditBottle(this.packageBottle(result, edit))
+      });
   }
 
   testing_too() {
@@ -66,7 +50,6 @@ bottle: Bottle = {
   }
 
   showNote(note) {
-    console.log('Received note: ', note);
     this.bottleService.setMessage(note);
   }
 
@@ -86,5 +69,37 @@ bottle: Bottle = {
 
   addOrEditBottle(bottle) {
     this.bottleService.setBottle(bottle);
+  }
+
+  packageBottle(bottle, edit) {
+    var retval = new Bottle();
+    if (edit) {
+      retval.id = bottle.id;
+      retval.rack = bottle.rack;
+      retval.pri = bottle.pri;
+      retval.sec = bottle.sec;
+    } else {
+      retval.id = 0;
+      retval.rack = this.bottleService.defRack;
+      retval.pri = '';
+      retval.sec = '';
+    }
+    retval.winery = bottle.winery;
+    retval.varietal = bottle.varietal;
+    retval.vineyard = bottle.vineyard;
+    retval.t = bottle.t;
+    retval.year = bottle.year;
+    if (retval.year == '0') {
+      retval.year = '0000';
+    }
+    retval.price = bottle.price;
+    retval.drinkMin = bottle.drinkmin;
+    retval.drinkMax = bottle.drinkmax;
+    retval.score = bottle.score;
+    retval.note = bottle.note;
+    retval.size = bottle.size;
+    retval.restricted = bottle.restricted;
+    retval.region = bottle.region;
+    return retval;
   }
 }

@@ -3,12 +3,12 @@
     display: flex;
     justify-content: center;
     flex: 8 8 auto;
-    height: 480px;
+    height: 430px;
     margin-bottom: 2em;
 }
 
 .headers {
-    background-color: lightblue;
+    background-color: rgb(144, 177, 228);
 }
 
 .nums {
@@ -29,6 +29,10 @@
 
 .P {
     background-color: #F2868E;
+}
+
+.S {
+    background-color: lightblue;
 }
 
 .bluetext {
@@ -61,7 +65,7 @@ table {
 }
 
 * {
-    font-size: large;
+    font-size: normal;
 }
 
 h1 {

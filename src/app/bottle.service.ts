@@ -25,6 +25,7 @@ export class BottleService {
   value = 0;
   message = "";
   sortOrder = -1;
+  defRack = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -50,24 +51,14 @@ export class BottleService {
     });
   }
 
-  getYears(): Observable<string[]> {
-    const url = this.dbUrl + '/years';
+  getStringValues(name): Observable<string[]> {
+    const url = this.dbUrl + '/' + name;
     return this.http.get<string[]>(url);
   }
 
   getSettings(): Observable<Settings> {
     const url = this.dbUrl + '/settings';
     return this.http.get<Settings>(url);
-  }
-
-  getVineyards(): Observable<string[]> {
-    const url = this.dbUrl + '/vineyards';
-    return this.http.get<string[]>(url);
-  }
-
-  getVarieties(): Observable<string[]> {
-    const url = this.dbUrl + '/varieties';
-    return this.http.get<string[]>(url);
   }
 
   getRacks(): Observable<SimpleData[]> {
@@ -78,6 +69,21 @@ export class BottleService {
   getRegions(form: string): Observable<SimpleData[]> {
     const url = this.dbUrl + '/regions/' + form;
     return this.http.get<SimpleData[]>(url);
+  }
+
+  fetchBottle(id: string): Observable<any> {
+    const url = this.dbUrl + '/bottles/' + id;
+    return this.http.get<any>(url);
+  }
+
+  addWine(bottle: Bottle): Observable<any> {
+    const url = this.dbUrl + '/bottles/';
+    return this.http.post<Bottle>(url, bottle, httpOptions);
+  }
+
+  editWine(bottle: Bottle): Observable<any> {
+    const url = this.dbUrl + '/bottles/' + bottle.id;
+    return this.http.put<Bottle>(url, bottle, httpOptions);
   }
 
   drinkBottle(id: string): Observable<any> {

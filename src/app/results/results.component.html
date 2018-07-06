@@ -18,13 +18,15 @@
     </tr>
     <tr *ngFor="let b of bottleService.bottles; let i = index" class="{{b.t}}">
       <td class="nums">
-        <a href="#add" (click)="testing()">*</a>
-        <a href="#add" (click)="testing_too()">{{i+1}}</a>.
+        <a href="#add" (click)="fetchBottle(b.id,false)">*</a>
+        <a href="#add" (click)="fetchBottle(b.id,true)">{{i+1}}</a>.
       </td>
       <td class="left italic bluetext" *ngIf="b.year == '0'; else origyear">
         {{b.da}}
       </td>
-      <ng-template #origyear class="left">{{b.year}}</ng-template>
+      <ng-template #origyear class="left">
+        <td class=left>{{b.year}}</td>
+      </ng-template>
 
       <td class="left">{{b.winery}}</td>
       <td>{{b.varietal}}</td>
@@ -38,11 +40,15 @@
       <td *ngIf="b.note != ''; else nonote" class="center">
         <a href="#msg" (click)="showNote(b.note)">X</a>
       </td>
-      <ng-template #nonote> &nbsp; </ng-template>
+      <ng-template #nonote>
+        <td> &nbsp; </td>
+      </ng-template>
       <td *ngIf="!b.drunk; else nobutton" [ngClass]="checkRestricted(b.restricted)">
           <input type=button value="Drink" (click)="drink(b.id,b.year,b.varietal)">
       </td>
-      <ng-template #nobutton class="nums"> &nbsp; </ng-template>
+      <ng-template #nobutton class="nums">
+        <td> &nbsp; </td>
+      </ng-template>
     </tr>
     <tr *ngIf="bottleService.bottles.length != 0">
       <td colspan=4 align=center>&nbsp;</td>

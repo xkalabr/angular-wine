@@ -17,14 +17,19 @@ export class AddformComponent implements OnInit {
   regions: SimpleData[] = [];
   racks: SimpleData[];
 
-  theBottle = new Bottle();
-  oldBottle = new Bottle();
+  theBottle: Bottle;
+  oldBottle: Bottle;
 
   constructor(private bottleService: BottleService) { }
 
   ngOnInit() {
+    this.theBottle = new Bottle();
+    this.oldBottle = new Bottle();
     this.getSettings();
-    this.bottleService.theBottle.subscribe(bottle => this.theBottle = bottle);
+    this.bottleService.theBottle.subscribe(bottle => {
+      this.oldBottle = this.theBottle;
+      this.theBottle = bottle;
+    });
   }
 
   makeYears(): void {
@@ -40,6 +45,8 @@ export class AddformComponent implements OnInit {
     this.theBottle.region = String(this.defs.region);
     this.theBottle.size = this.defs.size;
     this.theBottle.rack = this.defs.rack;
+    this.theBottle.id = 0;
+    this.bottleService.defRack = this.defs.rack;
   }
 
   getRacks(): void {
@@ -65,5 +72,68 @@ export class AddformComponent implements OnInit {
         this.getRegions();
         this.getRacks();
       });
+  }
+
+  doAddOrEdit() {
+    if (this.theBottle.id == 0) {
+      this.bottleService.addWine(this.theBottle)
+        .subscribe(result => {
+          this.oldBottle = this.theBottle;
+          this.theBottle = new Bottle();
+          this.bottleService.setMessage("Added " + this.oldBottle.year + " " + this.oldBottle.winery +
+          " " + this.oldBottle.varietal + " to " + this.lookupRack(this.oldBottle.rack) + " " +
+          this.oldBottle.pri + " " + this.oldBottle.sec)
+      });
+    } else {
+      this.bottleService.editWine(this.theBottle)
+        .subscribe(result => {
+          this.oldBottle = this.theBottle;
+          this.theBottle = new Bottle();
+          this.bottleService.setMessage("Updated " + this.oldBottle.year + " " + this.oldBottle.winery +
+          " " + this.oldBottle.varietal + " in " + this.lookupRack(this.oldBottle.rack) + " " +
+          this.oldBottle.pri + " " + this.oldBottle.sec)
+      });
+    }
+  }
+
+  lookupRack(rackID) {
+    for (var r of this.racks) {
+      if (rackID == r.id) {
+        return r.name;
+      }
+    }
+  }
+
+  addOrEdit() {
+    var retval = "Add";
+    if (this.theBottle.id != 0) {
+      retval = "Edit";
+    }
+    return retval;
+  }
+
+  addOrEditButton() {
+    var retval = "Submit";
+    if (this.theBottle.id != 0) {
+      retval = "Update";
+    }
+    return retval;
+  }
+
+  doCancel() {
+    this.theBottle = this.oldBottle;
+    this.oldBottle = new Bottle();
+  }
+
+  validateForm(): boolean {
+    var retval = true;
+    if (this.theBottle.winery != "" &&
+        this.theBottle.varietal != "" &&
+        this.theBottle.t != "A" &&
+        this.theBottle.pri != "" &&
+        this.theBottle.sec != "") {
+          retval = false;
+        }
+    return retval;
   }
 }
