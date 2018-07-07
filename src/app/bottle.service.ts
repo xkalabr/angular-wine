@@ -82,7 +82,7 @@ export class BottleService {
   }
 
   editWine(bottle: Bottle): Observable<any> {
-    const url = this.dbUrl + '/bottles/' + bottle.id;
+    const url = this.dbUrl + '/bottles/' + bottle.bid;
     return this.http.put<Bottle>(url, bottle, httpOptions);
   }
 

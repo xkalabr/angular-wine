@@ -29,6 +29,7 @@ export class AddformComponent implements OnInit {
     this.bottleService.theBottle.subscribe(bottle => {
       this.oldBottle = this.theBottle;
       this.theBottle = bottle;
+      console.log("Received bottle", bottle);
     });
   }
 
@@ -45,8 +46,7 @@ export class AddformComponent implements OnInit {
     this.theBottle.region = String(this.defs.region);
     this.theBottle.size = this.defs.size;
     this.theBottle.rack = this.defs.rack;
-    this.theBottle.id = 0;
-    this.bottleService.defRack = this.defs.rack;
+    this.theBottle.bid = 0;
   }
 
   getRacks(): void {
@@ -67,6 +67,7 @@ export class AddformComponent implements OnInit {
     this.bottleService.getSettings()
       .subscribe(defs => { 
         this.defs = defs;
+        this.bottleService.defRack = this.defs.rack;
         this.setBottleDefaults();
         this.makeYears();
         this.getRegions();
@@ -75,11 +76,19 @@ export class AddformComponent implements OnInit {
   }
 
   doAddOrEdit() {
-    if (this.theBottle.id == 0) {
+    if (this.theBottle.score == undefined) {
+      this.theBottle.score = 0;
+    }
+    if (this.theBottle.price == undefined) {
+      this.theBottle.price = 0.00;
+    }
+    console.log('The Bottle', this.theBottle);
+    if (this.theBottle.bid == 0) {
       this.bottleService.addWine(this.theBottle)
         .subscribe(result => {
           this.oldBottle = this.theBottle;
           this.theBottle = new Bottle();
+          this.setBottleDefaults();
           this.bottleService.setMessage("Added " + this.oldBottle.year + " " + this.oldBottle.winery +
           " " + this.oldBottle.varietal + " to " + this.lookupRack(this.oldBottle.rack) + " " +
           this.oldBottle.pri + " " + this.oldBottle.sec)
@@ -89,6 +98,7 @@ export class AddformComponent implements OnInit {
         .subscribe(result => {
           this.oldBottle = this.theBottle;
           this.theBottle = new Bottle();
+          this.setBottleDefaults();
           this.bottleService.setMessage("Updated " + this.oldBottle.year + " " + this.oldBottle.winery +
           " " + this.oldBottle.varietal + " in " + this.lookupRack(this.oldBottle.rack) + " " +
           this.oldBottle.pri + " " + this.oldBottle.sec)
@@ -106,7 +116,7 @@ export class AddformComponent implements OnInit {
 
   addOrEdit() {
     var retval = "Add";
-    if (this.theBottle.id != 0) {
+    if (this.theBottle.bid != 0) {
       retval = "Edit";
     }
     return retval;
@@ -114,15 +124,15 @@ export class AddformComponent implements OnInit {
 
   addOrEditButton() {
     var retval = "Submit";
-    if (this.theBottle.id != 0) {
+    if (this.theBottle.bid != 0) {
       retval = "Update";
     }
     return retval;
   }
 
   doCancel() {
-    this.theBottle = this.oldBottle;
-    this.oldBottle = new Bottle();
+    this.theBottle = new Bottle();
+    this.setBottleDefaults();
   }
 
   validateForm(): boolean {

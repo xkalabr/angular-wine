@@ -39,14 +39,11 @@ searched = false;
   }
 
   fetchBottle(id,edit) {
+    console.log("Fetching " + id)
     this.bottleService.fetchBottle(id)
       .subscribe(result => {
         this.addOrEditBottle(this.packageBottle(result, edit))
       });
-  }
-
-  testing_too() {
-    console.log("Testing too");
   }
 
   showNote(note) {
@@ -74,12 +71,12 @@ searched = false;
   packageBottle(bottle, edit) {
     var retval = new Bottle();
     if (edit) {
-      retval.id = bottle.id;
+      retval.bid = bottle.bid;
       retval.rack = bottle.rack;
       retval.pri = bottle.pri;
       retval.sec = bottle.sec;
     } else {
-      retval.id = 0;
+      retval.bid = 0;
       retval.rack = this.bottleService.defRack;
       retval.pri = '';
       retval.sec = '';
@@ -98,7 +95,11 @@ searched = false;
     retval.score = bottle.score;
     retval.note = bottle.note;
     retval.size = bottle.size;
-    retval.restricted = bottle.restricted;
+    if (bottle.restricted == 'Y') {
+      retval.restricted = true;
+    } else {
+      retval.restricted = false;
+    }
     retval.region = bottle.region;
     return retval;
   }

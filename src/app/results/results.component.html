@@ -18,8 +18,8 @@
     </tr>
     <tr *ngFor="let b of bottleService.bottles; let i = index" class="{{b.t}}">
       <td class="nums">
-        <a href="#add" (click)="fetchBottle(b.id,false)">*</a>
-        <a href="#add" (click)="fetchBottle(b.id,true)">{{i+1}}</a>.
+        <a href="#add" (click)="fetchBottle(b.bid,false)">*</a>
+        <a href="#add" (click)="fetchBottle(b.bid,true)">{{i+1}}</a>.
       </td>
       <td class="left italic bluetext" *ngIf="b.year == '0'; else origyear">
         {{b.da}}
@@ -44,7 +44,7 @@
         <td> &nbsp; </td>
       </ng-template>
       <td *ngIf="!b.drunk; else nobutton" [ngClass]="checkRestricted(b.restricted)">
-          <input type=button value="Drink" (click)="drink(b.id,b.year,b.varietal)">
+          <input type=button value="Drink" (click)="drink(b.bid,b.year,b.varietal)">
       </td>
       <ng-template #nobutton class="nums">
         <td> &nbsp; </td>

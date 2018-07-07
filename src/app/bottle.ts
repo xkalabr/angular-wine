@@ -1,5 +1,5 @@
 export class Bottle {
-    id: number = 0;
+    bid: number = 0;
     winery: string = "";
     varietal: string = "";
     vineyard: string = "";
