@@ -1,6 +1,6 @@
 <div name="addform" class="center">
   <a name="add"></a>
-  <form (ngSubmit)="doAddOrEdit()">
+  <form (ngSubmit)="doAddOrEdit()" id="add">
     <TABLE>
       <TR>
         <TD align=center colspan=6><H2>{{addOrEdit()}}</H2></TD>
@@ -10,7 +10,7 @@
       <TR>
         <TD class="right">Winery: </TD>
         <TD class="left" colspan=5>
-          <input class="form-control" name="winery" [(ngModel)]="theBottle.winery" [attr.size]="40" [attr.value]="theBottle.winery">
+          <input class="form-control" name="winery" [(ngModel)]="theBottle.winery" [attr.size]="40" [attr.value]="theBottle.winery" id="winery">
         </TD>
         <TD class="right">Year: </TD>
         <TD class="left">
@@ -26,7 +26,7 @@
     <TR>
       <TD class="right">Varietal: </TD>
       <TD class="left" colspan=5>
-            <input class="form-control" name="varietal" [(ngModel)]="theBottle.varietal" [attr.size]="40" [attr.value]="theBottle.varietal">
+            <input class="form-control" name="varietal" [(ngModel)]="theBottle.varietal" [attr.size]="40" [attr.value]="theBottle.varietal" id="varietal">
         </TD>
       <TD class="right">Size: </TD>
       <TD class="left">
@@ -42,11 +42,11 @@
     <TR>
       <TD class="right">Vineyard: </TD>
       <TD class="left" colspan=5>
-        <input class="form-control" name="vineyard" [(ngModel)]="theBottle.vineyard"  [attr.size]="40" [attr.value]="theBottle.vineyard">
+        <input class="form-control" name="vineyard" [(ngModel)]="theBottle.vineyard"  [attr.size]="40" [attr.value]="theBottle.vineyard" id="vineyard">
       </TD>
       <TD class="right">Price: </TD>
       <TD class="left">
-        <input class="form-control" name="price" [(ngModel)]="theBottle.price" [attr.size]="10" [attr.value]="theBottle.price">
+        <input class="form-control" name="price" [(ngModel)]="theBottle.price" [attr.size]="10" [attr.value]="theBottle.price" id="price">
       </TD>
     </TR>
     <TR>
@@ -62,11 +62,11 @@
       </TD>
       <TD class="right">Pri: </TD>
       <TD class="left">
-        <input class="form-control" name="pri" [(ngModel)]="theBottle.pri" [attr.size]="2" [attr.value]="theBottle.pri">
+        <input class="form-control" name="pri" [(ngModel)]="theBottle.pri" [attr.size]="2" [attr.value]="theBottle.pri" id="pri">
       </TD>
       <TD class="right">Sec: </TD>
       <TD class="left">
-        <input class="form-control" name="sec" [(ngModel)]="theBottle.sec" [attr.size]="2" [attr.value]="theBottle.sec">
+        <input class="form-control" name="sec" [(ngModel)]="theBottle.sec" [attr.size]="2" [attr.value]="theBottle.sec" id="sec">
       </TD>
       <TD colspan=2>
         <input class="form-control" type="radio" name="t" value="R" [(ngModel)]="theBottle.t">Red
@@ -78,15 +78,15 @@
     <TR>
       <TD class="right">Drink Min: </TD>
       <TD class="left">
-        <input class="form-control" name="dbmin" [(ngModel)]="theBottle.drinkMin" [attr.size]="4" [attr.value]="theBottle.drinkMin">
+        <input class="form-control" name="dbmin" [(ngModel)]="theBottle.drinkMin" [attr.size]="4" [attr.value]="theBottle.drinkMin" id="drinkmin">
       </TD>
       <TD class="right">Drink Max: </TD>
       <TD class="left">
-        <input class="form-control" name="drinkby" [(ngModel)]="theBottle.drinkMax" [attr.size]="4" [attr.value]="theBottle.drinkMax">
+        <input class="form-control" name="drinkby" [(ngModel)]="theBottle.drinkMax" [attr.size]="4" [attr.value]="theBottle.drinkMax" id="drinkmax">
       </TD>
       <TD class="right">Score: </TD>
       <TD class="left">
-        <input class="form-control" name="score" [(ngModel)]="theBottle.score" [attr.size]="3" [attr.value]="theBottle.score">
+        <input class="form-control" name="score" [(ngModel)]="theBottle.score" [attr.size]="3" [attr.value]="theBottle.score" id="score">
       </TD>
       <TD class="right">Restrict?</TD>
       <TD class="left">

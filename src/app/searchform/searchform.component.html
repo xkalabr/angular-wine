@@ -9,9 +9,9 @@
             <TD class="left">
               <select [(ngModel)]="query.vineyards" size=3 multiple class="form-control" name="vineyard">
                 <option value="Any">Any</option>
-                <option *ngFor="let vineyard of vineyards" 
-                  [value]="vineyard">
-                  {{vineyard}}
+                <option *ngFor="let winery of this.bottleService.wineries" 
+                  [value]="winery">
+                  {{winery}}
                 </option>
               </select>
             </TD>
@@ -30,7 +30,7 @@
           <TD class="left">
             <select [(ngModel)]="query.varietals" size=3 multiple class="form-control" name="variety">
               <option value="Any">Any</option>
-              <option *ngFor="let varietal of varietals" 
+              <option *ngFor="let varietal of this.bottleService.varietals" 
                 [value]="varietal">
                 {{varietal}}
               </option>

@@ -22,10 +22,13 @@ export class BottleService {
   theBottle = this.bottleSource.asObservable();
   queryString = this.querySource.asObservable();
   bottles = [];
-  value = 0;
+  monetaryValue = 0;
   message = "";
   sortOrder = -1;
   defRack = 0;
+  wineries = [];
+  varietals = [];
+
 
   constructor(private http: HttpClient) { }
 
@@ -41,12 +44,22 @@ export class BottleService {
     this.message = message;
   }
 
+  getWineries() {
+    this.getStringValues("vineyards")
+      .subscribe(vineyards => this.wineries = vineyards);
+  }
+
+  getVarietals() {
+    this.getStringValues("varieties")
+      .subscribe(varieties => this.varietals = varieties);
+  }
+
   runQuery(query: DBQuery) {
     this.doSearch(query).subscribe(results => {
       this.bottles = results;
-      this.value = 0;
+      this.monetaryValue = 0;
       for (var b of results) {
-        this.value += Number(b.price);
+        this.monetaryValue += Number(b.price);
       }
     });
   }

@@ -16,7 +16,6 @@ export class AddformComponent implements OnInit {
   years: SimpleData[];
   regions: SimpleData[] = [];
   racks: SimpleData[];
-
   theBottle: Bottle;
   oldBottle: Bottle;
 
@@ -29,7 +28,6 @@ export class AddformComponent implements OnInit {
     this.bottleService.theBottle.subscribe(bottle => {
       this.oldBottle = this.theBottle;
       this.theBottle = bottle;
-      console.log("Received bottle", bottle);
     });
   }
 
@@ -76,6 +74,17 @@ export class AddformComponent implements OnInit {
   }
 
   doAddOrEdit() {
+    // Needed to work around angular bug with autocomplete
+    this.theBottle.winery = (<HTMLInputElement>document.getElementById("winery")).value;
+    this.theBottle.varietal = (<HTMLInputElement>document.getElementById("varietal")).value;
+    this.theBottle.vineyard = (<HTMLInputElement>document.getElementById("vineyard")).value;
+    this.theBottle.price = Number((<HTMLInputElement>document.getElementById("price")).value);
+    this.theBottle.pri = (<HTMLInputElement>document.getElementById("pri")).value;
+    this.theBottle.sec = (<HTMLInputElement>document.getElementById("sec")).value;
+    this.theBottle.drinkMin = (<HTMLInputElement>document.getElementById("drinkmin")).value;
+    this.theBottle.drinkMax = (<HTMLInputElement>document.getElementById("drinkmax")).value;
+    this.theBottle.score = Number((<HTMLInputElement>document.getElementById("score")).value);
+    this.theBottle.note = (<HTMLInputElement>document.getElementById("notes")).value;
     if (this.theBottle.score == undefined) {
       this.theBottle.score = 0;
     }
@@ -146,4 +155,5 @@ export class AddformComponent implements OnInit {
         }
     return retval;
   }
+  
 }

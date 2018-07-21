@@ -11,8 +11,6 @@ import { DBQuery } from '../dbquery';
 export class SearchformComponent implements OnInit {
 
   query = new DBQuery();
-  vineyards: string[];
-  varietals: string[];
   years: SimpleData[];
   racks: SimpleData[];
   regions: SimpleData[] = [];
@@ -21,21 +19,12 @@ export class SearchformComponent implements OnInit {
 
   ngOnInit() {
     this.getYears();
-    this.getVineyards();
-    this.getVarieties();
+    this.bottleService.getWineries();
+    this.bottleService.getVarietals();
     this.getRacks();
     this.getRegions();
   }
 
-  getVineyards(): void {
-    this.bottleService.getStringValues("vineyards")
-      .subscribe(vineyards => this.vineyards = vineyards);
-  }
-
-  getVarieties(): void {
-    this.bottleService.getStringValues("varieties")
-      .subscribe(varieties => this.varietals = varieties);
-  }
 
   getYears(): void {
     this.bottleService.getStringValues("years")
