@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { BottleService } from '../bottle.service';
 import { SimpleData } from '../simpledata';
 import { Settings } from '../settings';
@@ -9,6 +12,7 @@ import { Bottle } from '../bottle';
   templateUrl: './addform.component.html',
   styleUrls: ['./addform.component.css']
 })
+
 export class AddformComponent implements OnInit {
 
   sizes = [".187 L", ".375 L", ".500 L", ".750 L", "1.5 L", "3 L", "6 L"];
@@ -18,8 +22,34 @@ export class AddformComponent implements OnInit {
   racks: SimpleData[];
   theBottle: Bottle;
   oldBottle: Bottle;
+  wineryFC = new FormControl();
+  filteredWineries: Observable<String[]>;
+  varietalFC = new FormControl();
+  filteredVarietals: Observable<String[]>;
 
-  constructor(private bottleService: BottleService) { }
+  constructor(private bottleService: BottleService) { 
+    this.filteredWineries = this.wineryFC.valueChanges
+      .pipe(
+        startWith(''),
+        map(winery => winery ? this._filterWineries(winery) : this.bottleService.wineries.slice())
+      )
+
+    this.filteredVarietals = this.varietalFC.valueChanges
+      .pipe(
+        startWith(''),
+        map(varietal => varietal ? this._filterVarietals(varietal) : this.bottleService.varietals.slice())
+      )
+  }
+  
+  private _filterVarietals(value: string): String[] {
+    const filterValue = value.toLowerCase();
+    return this.bottleService.varietals.filter(varietal => varietal.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  private _filterWineries(value: string): String[] {
+    const filterValue = value.toLowerCase();
+    return this.bottleService.wineries.filter(winery => winery.toLowerCase().indexOf(filterValue) === 0);
+  }
 
   ngOnInit() {
     this.theBottle = new Bottle();
@@ -28,6 +58,8 @@ export class AddformComponent implements OnInit {
     this.bottleService.theBottle.subscribe(bottle => {
       this.oldBottle = this.theBottle;
       this.theBottle = bottle;
+      this.wineryFC.setValue(this.theBottle.winery);
+      this.varietalFC.setValue(this.theBottle.varietal);
     });
   }
 
@@ -75,8 +107,8 @@ export class AddformComponent implements OnInit {
 
   doAddOrEdit() {
     // Needed to work around angular bug with autocomplete
-    this.theBottle.winery = (<HTMLInputElement>document.getElementById("winery")).value;
-    this.theBottle.varietal = (<HTMLInputElement>document.getElementById("varietal")).value;
+    this.theBottle.winery = this.wineryFC.value;
+    this.theBottle.varietal = this.varietalFC.value;
     this.theBottle.vineyard = (<HTMLInputElement>document.getElementById("vineyard")).value;
     this.theBottle.price = Number((<HTMLInputElement>document.getElementById("price")).value);
     this.theBottle.pri = (<HTMLInputElement>document.getElementById("pri")).value;
@@ -85,6 +117,7 @@ export class AddformComponent implements OnInit {
     this.theBottle.drinkMax = (<HTMLInputElement>document.getElementById("drinkmax")).value;
     this.theBottle.score = Number((<HTMLInputElement>document.getElementById("score")).value);
     this.theBottle.note = (<HTMLInputElement>document.getElementById("notes")).value;
+    this.theBottle.region = (<HTMLInputElement>document.getElementById("region")).value
     if (this.theBottle.score == undefined) {
       this.theBottle.score = 0;
     }
@@ -97,6 +130,8 @@ export class AddformComponent implements OnInit {
         .subscribe(result => {
           this.oldBottle = this.theBottle;
           this.theBottle = new Bottle();
+          this.wineryFC.setValue(this.theBottle.winery);
+          this.varietalFC.setValue(this.theBottle.varietal);
           this.setBottleDefaults();
           this.bottleService.setMessage("Added " + this.oldBottle.year + " " + this.oldBottle.winery +
           " " + this.oldBottle.varietal + " to " + this.lookupRack(this.oldBottle.rack) + " " +
@@ -107,6 +142,8 @@ export class AddformComponent implements OnInit {
         .subscribe(result => {
           this.oldBottle = this.theBottle;
           this.theBottle = new Bottle();
+          this.wineryFC.setValue(this.theBottle.winery);
+          this.varietalFC.setValue(this.theBottle.varietal);
           this.setBottleDefaults();
           this.bottleService.setMessage("Updated " + this.oldBottle.year + " " + this.oldBottle.winery +
           " " + this.oldBottle.varietal + " in " + this.lookupRack(this.oldBottle.rack) + " " +
@@ -143,7 +180,7 @@ export class AddformComponent implements OnInit {
     this.theBottle = new Bottle();
     this.setBottleDefaults();
   }
-
+/*
   validateForm(): boolean {
     var retval = true;
     if (this.theBottle.winery != "" &&
@@ -155,5 +192,17 @@ export class AddformComponent implements OnInit {
         }
     return retval;
   }
-  
+  */
+  validateForm(): boolean {
+    var retval = true;
+    if (this.wineryFC.value != "" &&
+        this.theBottle.varietal != "" &&
+        this.theBottle.t != "A" &&
+        (<HTMLInputElement>document.getElementById("pri")).value != "" &&
+        (<HTMLInputElement>document.getElementById("sec")).value != "") {
+          retval = false;
+        }
+    return retval;
+  }
+
 }

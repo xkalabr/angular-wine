@@ -53,7 +53,7 @@
     <tr *ngIf="bottleService.bottles.length != 0">
       <td colspan=4 align=center>&nbsp;</td>
       <td class="right">Total Value:</td>
-      <td class="center">{{bottleService.value | currency}}</td>
+      <td class="center">{{bottleService.monetaryValue | currency}}</td>
       <td colspan=7>&nbsp;</td>
     </tr>
     <tr *ngIf="bottleService.bottles.length != 0; else nodata">

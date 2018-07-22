@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
 body {
     margin: 0em;
     overflow-y: hidden;
@@ -8,3 +10,4 @@ body {
     font-family: Tahoma;
     font-size: small;
 }
+

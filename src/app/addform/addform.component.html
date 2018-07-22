@@ -10,7 +10,14 @@
       <TR>
         <TD class="right">Winery: </TD>
         <TD class="left" colspan=5>
-          <input class="form-control" name="winery" [(ngModel)]="theBottle.winery" [attr.size]="40" [attr.value]="theBottle.winery" id="winery">
+          <mat-form-field>
+            <input matInput placeholder="Winery" [matAutocomplete]="winery" [formControl]="wineryFC">
+            <mat-autocomplete #winery="matAutocomplete">
+              <mat-option *ngFor="let winery of filteredWineries | async" [value]="winery">
+                <span>{{ winery }}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
         </TD>
         <TD class="right">Year: </TD>
         <TD class="left">
@@ -26,8 +33,15 @@
     <TR>
       <TD class="right">Varietal: </TD>
       <TD class="left" colspan=5>
-            <input class="form-control" name="varietal" [(ngModel)]="theBottle.varietal" [attr.size]="40" [attr.value]="theBottle.varietal" id="varietal">
-        </TD>
+        <mat-form-field>
+            <input matInput placeholder="Varietal" [matAutocomplete]="varietal" [formControl]="varietalFC">
+            <mat-autocomplete #varietal="matAutocomplete">
+              <mat-option *ngFor="let varietal of filteredVarietals | async" [value]="varietal">
+                <span>{{ varietal }}</span>
+              </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+      </TD>
       <TD class="right">Size: </TD>
       <TD class="left">
         <select [(ngModel)]="theBottle.size" size=1 class="form-control" name="sz">
@@ -96,7 +110,7 @@
     <TR>
       <TD class="right">Region: </TD>
       <TD class="left" colspan=4>
-        <select [(ngModel)]="theBottle.region" [attr.size]="1" class="form-control" name="region">
+        <select [(ngModel)]="theBottle.region" [attr.size]="1" class="form-control" name="region" id="region">
           <option *ngFor="let region of regions" 
             [value]="region.id"
             [attr.selected]="theBottle.region==region.id ? true : null">
