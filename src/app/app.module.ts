@@ -48,6 +48,10 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { AppRoutingModule } from './app-routing.module';
+import { CombopageComponent } from './combopage/combopage.component';
+import { AdventComponent } from './advent/advent.component';
+import { SearchpageComponent } from './searchpage/searchpage.component';
 
 @NgModule({
   exports: [
@@ -88,7 +92,9 @@ import {
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-  ]
+  ],
+  imports: [],
+  declarations: []
 })
 export class DemoMaterialModule {}
 
@@ -98,9 +104,13 @@ export class DemoMaterialModule {}
     SearchformComponent,
     AddformComponent,
     MsglineComponent,
-    ResultsComponent
+    ResultsComponent,
+    CombopageComponent,
+    AdventComponent,
+    SearchpageComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,

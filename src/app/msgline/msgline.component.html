@@ -1,4 +1,5 @@
 <div class="msgbox">
-  <a name="msg"></a>
-  {{bottleService.message}}
+    <div *ngIf="bottleService.message != ''" class="msgtext">
+        {{bottleService.message}}
+    </div>
 </div>

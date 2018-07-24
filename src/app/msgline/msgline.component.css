@@ -4,3 +4,7 @@
     text-align: left;
     display: flex;
 }
+
+.msgtext {
+    margin: 1em;
+}

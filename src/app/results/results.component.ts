@@ -46,8 +46,8 @@ searched = false;
       });
   }
 
-  showNote(note) {
-    this.bottleService.setMessage(note);
+  showNote(note, num) {
+    this.bottleService.setMessage("#" + num + ": " + note);
   }
 
   drink(id, year, varietal) {
