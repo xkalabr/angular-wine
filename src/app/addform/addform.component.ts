@@ -195,7 +195,7 @@ export class AddformComponent implements OnInit {
   */
   validateForm(): boolean {
     var retval = true;
-    if (this.wineryFC.value != "" &&
+    if (this.theBottle.winery != "" &&
         this.theBottle.varietal != "" &&
         this.theBottle.t != "A" &&
         (<HTMLInputElement>document.getElementById("pri")).value != "" &&

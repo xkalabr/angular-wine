@@ -58,6 +58,7 @@ export class SearchformComponent implements OnInit {
       regionFix.push(String(r));
     }
     this.query.regions = regionFix;
+    this.bottleService.setMessage("");
     this.bottleService.setQuery(this.query);
   }
 

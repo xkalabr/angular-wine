@@ -104,6 +104,16 @@ export class BottleService {
     return this.http.delete(url);
   }
 
+  getAdvent(): Observable<string[][]> {
+      const url = this.dbUrl + '/advent';
+      return this.http.get<string[][]>(url);
+  }
+
+  pickAdvent(day: string): Observable<string[][]> {
+      const url = this.dbUrl + '/adventpick/' + day;
+      return this.http.get<string[][]>(url);
+  }
+
   doSearch(query: DBQuery): Observable<any> {
     const url = this.dbUrl + '/query';
     return this.http.post<any>(url, query, httpOptions);

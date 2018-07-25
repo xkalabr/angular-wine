@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BottleService } from '../bottle.service';
 
 @Component({
   selector: 'app-advent',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdventComponent implements OnInit {
 
-  constructor() { }
+    date = new Date();
+    yr = this.date.getFullYear();
+    month = this.date.getMonth();
+    today = this.date.getDate();
+    targetMonth = 6;
+    weeks: string[][];
 
-  ngOnInit() {
-  }
+    constructor(private bottleService: BottleService) { }
 
+    ngOnInit() {
+        this.updateDisplay();
+    }
+
+    updateDisplay(): void {
+        this.bottleService.getAdvent()
+            .subscribe(results => this.weeks = results);
+    }
+
+    pick(day): void {
+        this.bottleService.pickAdvent(day)
+            .subscribe(results => this.weeks = results);
+    }
 }

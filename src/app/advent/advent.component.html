@@ -1,3 +1,36 @@
-<p>
-  advent works!
-</p>
+<H2 class="center large">{{ yr }} Advent Calendar</H2>
+<div *ngIf="month != targetMonth" class="go_away center">
+    Come back in December!
+</div>
+<div *ngIf="month == targetMonth">
+    <TABLE class="advent">
+        <THEAD>
+            <TR>
+                <TH colspan="7" class="center">December</TH>
+            </TR>
+            <TR>
+                <TH>Sun</TH>
+                <TH>Mon</TH>
+                <TH>Tue</TH>
+                <TH>Wed</TH>
+                <TH>Thu</TH>
+                <TH>Fri</TH>
+                <TH>Sat</TH>
+            </TR>
+        </THEAD>
+        <TBODY>
+            <TR *ngFor="let week of weeks">
+                <TD *ngFor="let day of week" [ngClass]="day.tag">
+                    <span *ngIf="day.tag != 'dec'">{{ day.day }}</span>
+                    <div *ngIf="day.tag == 'dec'" class="num">{{ day.day }}</div>
+                    <div *ngIf="day.tag == 'dec' && day.pick.length > 0" class="thepick">
+                        <span *ngFor="let line of day.pick">
+                            {{ line }}<BR/>
+                        </span>
+                    </div>
+                    <a *ngIf="day.tag == 'dec' && day.day < 25 && day.day <= today && day.pick.length < 1" (click)="pick(day.day)">Open</a>
+                </TD>
+            </TR>
+        </TBODY>
+    </TABLE>
+</div>

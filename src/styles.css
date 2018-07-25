@@ -4,10 +4,7 @@
 body {
     margin: 0em;
     overflow-y: hidden;
+    font-family: Tahoma;
   }
 
-* {
-    font-family: Tahoma;
-    font-size: small;
-}
 
